@@ -1,0 +1,48 @@
+.container{
+    display: grid;
+    grid-template-columns: 50% 50%;
+}
+
+.word{
+    display: grid;
+    justify-content: center;
+    align-items: center;
+    color: blue;
+    padding-bottom: 20px;
+    font-weight: bold;
+
+}
+.log{
+    display: grid;
+    justify-content: center;
+    align-content: center;
+    padding-bottom: 150px;
+    font-size: x-large;
+}
+.inputContainer{
+    padding-bottom: 30px;
+}
+.inputBox{
+    border: 25%;
+    border-color: red;  
+    margin: auto;
+    /* red ko co td  */
+}
+.loginBox{
+    border-radius: 5px;
+    background-color:rgb(18, 26, 189);
+    color: white;
+    width: 200px;
+}
+.picContainer{
+    display: grid;
+    justify-content: end;
+    grid-template-rows: 50% 50%;
+}
+.topPic{
+    display: grid;
+    justify-content: end;
+}
+.botPic{
+   
+}
