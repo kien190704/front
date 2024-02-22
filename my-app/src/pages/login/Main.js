@@ -1,15 +1,16 @@
 import React, { useEffect, useState } from "react";
 import style from "./Main.module.css";
 import apiInstance, { apiLoggedInInstances } from "../getApi/axios";
-import { useNavigate } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 import TopImage from "../login/top.jpg";
 import BotImage from "../login/bot.jpg";
 
-function Main() {
+const Main =() => {
     const navigate = useNavigate();
     const [userName, setUserName] = useState("");
     const [password, setPassword] = useState("");
     const [user, setUser] = useState({});
+    const params = useLocation();
 
     const handelLogin = () => {
         apiInstance({
@@ -22,16 +23,10 @@ function Main() {
         }).then(response => {
             const responseData = response.data
             const { token, userId } = responseData;
-            localStorage.setItem("token: ", token);
-            localStorage.setItem("userID: ", userId);
-
-            apiLoggedInInstances({
-            url: "/api/auth/user-info",
-            method: "GET",
-        }).then(Response => {
-            setUser(Response.data);
-            console.log(Response);
-        });
+            localStorage.setItem("token", token);
+            localStorage.setItem("userID", userId);
+            console.log(responseData);
+            navigate("/");
         }); 
     };
 
@@ -61,7 +56,7 @@ function Main() {
                         type="password"
                         placeholder="Mật khẩu"></input>
                 </div>
-                <button className={style.loginBox} onClick={handelLogin}>Đăng nhập</button>
+                <button className={style.loginBox} onClick={() =>handelLogin()}>Đăng nhập</button>
             </div>
             <div className={style.picContainer}>
                 <img className={style.topPic} src={TopImage} alt=""></img>
