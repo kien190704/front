@@ -1,26 +1,27 @@
 import React, { useEffect, useState } from "react";
 import { apiLoggedInInstances } from "../getApi/axios";
 const QuanTriThanhVien = () => {
-    const [Data, setData] =useState([]); // luu Data
-    const [PageIndex,setPageIndex] = useState(0);
-    const[PageSize,setPageSize] = useState(10);
-    const[TotalPage,setTotalPage] = useState(1);
+    const [data, setData] =useState([]); // luu data
+    const [pageIndex,setPageIndex] = useState(0);
+    const[pageSize,setPageSize] = useState(10);
+    const[totalPage,setTotalPage] = useState(1);
 
     useEffect(() => {
         apiLoggedInInstances( {
             url: "/api/admin/user",
+            method: "GET",
             params: {
-                page_index:PageIndex,
-                page_size:PageSize
+                page_index:pageIndex,
+                page_size:pageSize
             }
         }).then(respone => {
-            const {Data: userData, headers} = respone 
+            const {data: userData, headers} = respone 
             setData(userData);
             //tong so trang 
             const {totalElement} = headers;
-            setTotalPage(Math.ceil(totalElement/PageSize))
+            setTotalPage(Math.ceil(totalElement/pageSize))
         })
-    },[PageIndex,PageSize])
+    },[pageIndex,pageSize])
     return (
         <div>
             
@@ -47,13 +48,13 @@ const QuanTriThanhVien = () => {
                         <tr>
                             <th></th>
                             <th></th>
-                            <th> </th>
                             <th></th>
-                            <th> </th>
-                            <th> </th>
+                            <th></th>
+                            <th></th>
+                            <th></th>
                             <th></th>
                         </tr>
-                        {Data.map((user,index) =>(
+                        {data.map((user,index) =>(
                             <tr>
                                 <td>{index +1}</td>
                                 <td></td>
@@ -64,18 +65,18 @@ const QuanTriThanhVien = () => {
                                 <td>{user.birthday}</td>
                             </tr>
                         ))}
-                        <tfoot>
-                            <tr>
-                                <td>
-                                {[...Array(TotalPage)].map((_,i) =>(
+                    </tbody>
+                    <tfoot>
+                        <tr>
+                            <td >
+                                {[...Array(totalPage)].map((_, i) => (
                                     <button onClick={() => {
                                         setPageIndex(i)
-                                    }} className="border">{i + 1}</button>
+                                    }} className='px-2 py-1 border'>{i + 1}</button>
                                 ))}
-                                </td>
-                            </tr>
+                            </td>
+                        </tr>
                         </tfoot>
-                    </tbody>
                 </table>
             </div>
         </div>
