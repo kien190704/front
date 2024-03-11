@@ -6,7 +6,7 @@ import axios from "axios";
 const token = localStorage.getItem("token");
 export const apiLoggedInInstances = axios.create({
     baseURL: "https://training.bks.center/",
-    header : {
+    headers : {
         "Authorization" :`Bearer ${token}`
     }
 })
